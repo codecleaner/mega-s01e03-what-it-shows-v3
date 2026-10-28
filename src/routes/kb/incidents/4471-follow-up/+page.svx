@@ -1,0 +1,38 @@
+---
+layout: runbook
+title: '#4471 · date problems split for follow-up'
+owner: support desk
+status: known
+reviewed: 2026-10-28
+signature: codecleaner
+---
+
+<script>
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+#4471 merged **412 unique reports** about bookings landing on the wrong day. The reports contain
+two distinct problems, so each needs its own ticket and count.
+
+## Problems
+
+### Parser reads day-first dates as month-first
+
+**Covers 379 reports.** The shared parser reads every date month first, even for tenants whose
+locale writes the day before the month. That flips the day and month in the booking.
+
+Tracking ticket: [#1](https://github.com/codecleaner/mega-s01e03-what-it-shows/issues/1).
+
+### booking-v3 gives day-first tenants an `MM/DD/YYYY` hint
+
+**Covers 33 reports.** `booking-v3` displays `MM/DD/YYYY` for day-first tenants, which directs
+people to enter dates in an order their locale does not use.
+
+Tracking ticket: [#2](https://github.com/codecleaner/mega-s01e03-what-it-shows/issues/2).
+
+## Computed breakdown
+
+<CauseTable ticket={4471} />
+
+<RenderStamp {signature} />
